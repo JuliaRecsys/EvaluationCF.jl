@@ -1,6 +1,8 @@
 module EvaluationCF
 
 using Persa
-include("metrics/accuracy.jl")
+using Random: shuffle
+
+include("experimental/holdout.jl")
 
 end # module
