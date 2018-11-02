@@ -1,10 +1,10 @@
 struct HoldOut
-    dataset::Persa.Dataset
+    dataset::Persa.AbstractDataset
     index::Array
     k::Float64
 end
 
-HoldOut(dataset::Persa.Dataset, margin::Float64) = HoldOut(dataset, shuffle(collect(1:length(dataset))), margin)
+HoldOut(dataset::Persa.AbstractDataset, margin::Float64) = HoldOut(dataset, shuffle(collect(1:length(dataset))), margin)
 
 get(holdout::HoldOut) = (getTrainData(holdout), getTestData(holdout))
 
