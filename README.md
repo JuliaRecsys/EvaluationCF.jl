@@ -1,8 +1,3 @@
-# EvaluationCF
-
-[![Build Status](https://travis-ci.org/JuliaRecsys/EvaluationCF.jl.svg?branch=master)](https://travis-ci.org/JuliaRecsys/EvaluationCF.jl)
-
-
 # EvaluationCF.jl
 
 *Package for evaluation of predictive algorithms. It contains metrics, data partitioning and more.*
@@ -24,24 +19,24 @@ pkg> add EvaluationCF
 Or, equivalently, via the `Pkg` API:
 
 ```julia
-julia> import Pkg; Pkg.add("EvaluateCF")
+julia> import Pkg; Pkg.add("EvaluationCF")
 ```
 
 [contrib-url]: https://juliadocs.github.io/Documenter.jl/latest/man/contributing/
 
 [docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
-[docs-dev-url]: https://juliarecsys.github.io/EvaluateCF.jl/latest
+[docs-dev-url]: https://juliarecsys.github.io/EvaluationCF.jl/latest
 
-[travis-img]: https://travis-ci.org/JuliaRecsys/Persa.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/JuliaRecsys/Persa.jl
+[travis-img]: https://travis-ci.org/JuliaRecsys/EvaluationCF.jl.svg?branch=master
+[travis-url]: https://travis-ci.org/JuliaRecsys/EvaluationCF.jl
 
 [appveyor-img]: https://ci.appveyor.com/api/projects/status/xx7nimfpnl1r4gx0?svg=true
 [appveyor-url]: https://ci.appveyor.com/project/JuliaDocs/documenter-jl
 
-[codecov-img]: https://codecov.io/gh/JuliaRecsys/EvaluateCF.jl/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/JuliaRecsys/EvaluateCF.jl
+[codecov-img]: https://codecov.io/gh/JuliaRecsys/EvaluationCF.jl/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/JuliaRecsys/EvaluationCF.jl
 
-[coverage-img]: https://coveralls.io/repos/JuliaRecsys/EvaluateCF.jl/badge.svg?branch=master&service=github
-[coverage-url]: https://coveralls.io/github/JuliaRecsys/EvaluateCF.jl?branch=master
+[coverage-img]: https://coveralls.io/repos/JuliaRecsys/EvaluationCF.jl/badge.svg?branch=master&service=github
+[coverage-url]: https://coveralls.io/github/JuliaRecsys/EvaluationCF.jl?branch=master
 
-[issues-url]: https://github.com/JuliaRecsys/EvaluateCF.jl/issues
+[issues-url]: https://github.com/JuliaRecsys/EvaluationCF.jl/issues
