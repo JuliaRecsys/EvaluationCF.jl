@@ -1,28 +1,32 @@
-struct KFolds
-    dataset::Persa.AbstractDataset
-    index::Array
+struct KFolds{T <: Persa.AbstractDataset} <: ResamplingStrategy{T}
+    dataset::T
+    index::Array{Int}
     k::Int
 end
 
-KFolds(dataset::Persa.AbstractDataset, k::Int) = KFolds(dataset, splitKFold(length(dataset), k), k)
+function KFolds(dataset::Persa.AbstractDataset; k::Int = 10, is_shuffle::Bool = true)
+  return KFolds(dataset, splitKFold(length(dataset), k, is_shuffle), k)
+end
 
-getTrainIndex(kfold::KFolds, fold::Int) = findall(r -> r != fold, kfold.index)
-getTestIndex(kfold::KFolds, fold::Int) = findall(r -> r == fold, kfold.index)
+function getTrainData(kfold::KFolds{T}, fold::Int) :: T where T
+    index = findall(r -> r != fold, kfold.index)
+    return Persa.sample(kfold.dataset, index)
+end
 
-Base.iterate(kf::KFolds, state=1) = state > kf.k ? nothing : (kf[state], state + 1)
+function getTestData(kfold::KFolds{T}, fold::Int) :: T where T
+    index = findall(r -> r == fold, kfold.index)
+    return Persa.sample(kfold.dataset, index)
+end
 
-Base.getindex(kf::KFolds, idx) = (Persa.Dataset(kf.dataset[getTrainIndex(kf, idx)],
-                                                kf.dataset.users,
-                                                kf.dataset.items,
-                                                kf.dataset.preference),
-                                  Persa.Dataset(kf.dataset[getTestIndex(kf, idx)],
-                                                kf.dataset.users,
-                                                kf.dataset.items,
-                                                kf.dataset.preference))
 Base.length(kf::KFolds) = kf.k
 
-function splitKFold(y, num_folds)
-  i = shuffle(collect(1:y));
+function splitKFold(y, num_folds, is_shuffle)
+  if is_shuffle
+    i = shuffle(collect(1:y));
+  else
+     i = collect(1:y);
+  end
+
   fold_size = round(Int, floor(y/num_folds));
   remainder = y-num_folds*fold_size;
   groups = zeros(Int, y);

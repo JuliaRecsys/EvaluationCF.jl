@@ -1,19 +1,26 @@
-struct HoldOut
-    dataset::Persa.AbstractDataset
-    index::Array
+
+struct HoldOut{T <: Persa.AbstractDataset} <: ResamplingStrategy{T}
+    dataset::T
+    index::Array{Int}
     k::Float64
 end
 
-HoldOut(dataset::Persa.AbstractDataset, margin::Float64) = HoldOut(dataset, shuffle(collect(1:length(dataset))), margin)
-
-get(holdout::HoldOut) = (getTrainData(holdout), getTestData(holdout))
-
-function getTrainData(holdout::HoldOut)
-    index = findall(r -> r < length(holdout.dataset) * holdout.k, holdout.index)
-    return Persa.Dataset(holdout.dataset[index], holdout.dataset.users, holdout.dataset.items, holdout.dataset.preference)
+function HoldOut(dataset::Persa.AbstractDataset; is_shuffle::Bool = true, margin::Float64 = 0.9)
+    if is_shuffle == true
+        return HoldOut(dataset, shuffle(collect(1:length(dataset))), margin)
+    else
+        return HoldOut(dataset, collect(1:length(dataset)), margin)
+    end
 end
 
-function getTestData(holdout::HoldOut)
+Base.length(ho::HoldOut) = 1
+
+function getTrainData(holdout::HoldOut{T}, _::Int) :: T where T
+    index = findall(r -> r < length(holdout.dataset) * holdout.k, holdout.index)
+    return Persa.sample(holdout.dataset, index)
+end
+
+function getTestData(holdout::HoldOut{T}, _::Int) :: T where T
     index = findall(r -> r >= length(holdout.dataset) * holdout.k, holdout.index)
-    return Persa.Dataset(holdout.dataset[index], holdout.dataset.users, holdout.dataset.items, holdout.dataset.preference)
+    return Persa.sample(holdout.dataset, index)
 end
