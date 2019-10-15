@@ -37,7 +37,7 @@ function coverage(model::Persa.Model, dataset::Persa.AbstractDataset)
     elements = 0
 
     for (u, v, r) in dataset
-        isnan(model[u, v]) ? elements += 1 : nothing
+        !isnan(model[u, v]) ? elements += 1 : nothing
     end
 
     return elements / length(dataset)
