@@ -16,11 +16,11 @@ end
 Base.length(ho::HoldOut) = 1
 
 function getTrainData(holdout::HoldOut{T}, _::Int) :: T where T
-    index = findall(r -> r < length(holdout.dataset) * holdout.k, holdout.index)
+    index = findall(r -> r <= length(holdout.dataset) * holdout.k, holdout.index)
     return Persa.sample(holdout.dataset, index)
 end
 
 function getTestData(holdout::HoldOut{T}, _::Int) :: T where T
-    index = findall(r -> r >= length(holdout.dataset) * holdout.k, holdout.index)
+    index = findall(r -> r > length(holdout.dataset) * holdout.k, holdout.index)
     return Persa.sample(holdout.dataset, index)
 end
