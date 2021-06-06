@@ -12,13 +12,7 @@
 ## Example
 
 ```
-julia> using Persa
-
-julia> using DatasetsCF
-
-julia> using ModelBasedCF
-
-julia> using EvaluationCF
+julia> using Persa, DatasetsCF, ModelBasedCF, EvaluationCF
 
 julia> dataset = DatasetsCF.MovieLens()
 Collaborative Filtering Dataset
@@ -27,25 +21,27 @@ Collaborative Filtering Dataset
 - # ratings: 100000
 - Ratings Preference: [1, 2, 3, 4, 5]
 
-julia> sample = EvaluationCF.HoldOut(dataset)
+julia> k = 10
 
-julia> for (ds_train, ds_test) in sample
+julia> folds = EvaluationCF.KFolds(dataset; k = k)
+
+julia> mae = 0; rmse = 0; coverage = 0;
+
+julia> for (ds_train, ds_test) in folds
            model = ModelBasedCF.RandomModel(ds_train)
-           mae = EvaluationCF.mae(model, ds_test)
-           rmse = EvaluationCF.rmse(model, ds_test)
-           coverage = EvaluationCF.coverage(model, ds_test)
-           text =
-           """ Experiment:
-               MAE: $(mae)
-               RMSE: $(rmse)
-               Coverage: $(coverage)
-           """
-
-           print(text)
+           mae += EvaluationCF.mae(model, ds_test)
+           rmse += EvaluationCF.rmse(model, ds_test)
+           coverage += EvaluationCF.coverage(model, ds_test)
        end
+
+julia> print(""" Experiment:
+            MAE: $(mae / k)
+            RMSE: $(rmse / k)
+            Coverage: $(coverage / k)
+        """)
  Experiment:
-    MAE: 1.5095490450954905
-    RMSE: 1.9079140406216837
+    MAE: 1.5095299999999998
+    RMSE: 1.884630523993449
     Coverage: 1.0
 ```
 
