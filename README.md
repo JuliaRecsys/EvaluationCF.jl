@@ -5,7 +5,7 @@
 [![][ci-img]][ci-url]
 [![][codecov-img]][codecov-url]
 
-**Installation**: at the Julia REPL, `Pkg.add("DatasetsCF")`
+**Installation**: at the Julia REPL, `Pkg.add("EvaluationCF")`
 
 **Reporting Issues and Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md)
 
