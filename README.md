@@ -45,8 +45,8 @@ julia> print(""" Experiment:
     Coverage: 1.0
 ```
 
-[ci-img]: https://img.shields.io/github/checks-status/JuliaRecsys/EvaluationCF.jl/master?style=flat-square
+[ci-img]: https://github.com/JuliaRecsys/EvaluationCF.jl/actions/workflows/CI.yml/badge.svg?branch=master
 [ci-url]: https://github.com/JuliaRecsys/EvaluationCF.jl/actions
 
-[codecov-img]: https://img.shields.io/codecov/c/github/JuliaRecsys/EvaluationCF.jl?style=flat-square
+[codecov-img]: https://img.shields.io/codecov/c/github/JuliaRecsys/EvaluationCF.jl
 [codecov-url]: https://codecov.io/gh/JuliaRecsys/EvaluationCF.jl
